@@ -1,13 +1,19 @@
-import socket
+import _thread
+import logging
+import time
 
-from device import PhiCommDC1Plug
+from config import load_config
+from common import log
+from server import server_daemon, server_heartbeat
 
 if __name__ == '__main__':
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(('0.0.0.0', 8000))
-    sock.listen(5)
+    logging.basicConfig(level=logging.DEBUG)
 
-    sock_a, addr = sock.accept()
-    print(addr)
-    sock_a.close()
-    sock.close()
+    load_config('default.json')
+    log.info('config loaded')
+
+    server_thread = _thread.start_new_thread(server_daemon, ())
+    heartbeat_thread = _thread.start_new_thread(server_heartbeat, ())
+
+    while True:
+        time.sleep(1)

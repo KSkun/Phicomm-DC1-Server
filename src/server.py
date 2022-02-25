@@ -20,6 +20,6 @@ def server_daemon():
 
 def server_heartbeat():
     while True:
-        time.sleep(10)
+        time.sleep(30)
         for dev in devices.values():
             dev.heartbeat()

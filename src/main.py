@@ -9,7 +9,7 @@ from config import load_config
 from server import server_daemon, server_heartbeat
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     load_config('default.json')
     log.info('config loaded')

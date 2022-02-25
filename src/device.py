@@ -63,3 +63,17 @@ class PhiCommDC1:
 
     def heartbeat(self):
         self.update_status()
+
+    def to_dict(self):
+        return {
+            'ip': self._server.get_ip_addr(),
+            'mac': self._server.get_mac_addr(),
+            'name': self._name,
+            'switch_name': self._switch_name,
+            'switch': list(self._switch),
+            'measure': {
+                'voltage': self._voltage,
+                'current': self._current,
+                'power': self._power
+            }
+        }

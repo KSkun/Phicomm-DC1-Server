@@ -1,9 +1,10 @@
 import socket
 import time
+from typing import Dict
 
 from device import PhiCommDC1
 
-devices = {}
+devices: Dict[str, PhiCommDC1] = {}
 
 
 def server_daemon():
@@ -19,6 +20,6 @@ def server_daemon():
 
 def server_heartbeat():
     while True:
-        time.sleep(5)
+        time.sleep(10)
         for dev in devices.values():
             dev.heartbeat()

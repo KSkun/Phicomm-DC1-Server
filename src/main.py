@@ -1,9 +1,11 @@
 import _thread
 import logging
-import time
 
-from config import load_config
+from flask import Flask
+
+from api import api_bp
 from common import log
+from config import load_config
 from server import server_daemon, server_heartbeat
 
 if __name__ == '__main__':
@@ -15,5 +17,6 @@ if __name__ == '__main__':
     server_thread = _thread.start_new_thread(server_daemon, ())
     heartbeat_thread = _thread.start_new_thread(server_heartbeat, ())
 
-    while True:
-        time.sleep(1)
+    app = Flask(__name__)
+    app.register_blueprint(api_bp)
+    app.run(host='0.0.0.0', port=8090)

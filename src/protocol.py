@@ -43,9 +43,9 @@ class PhiCommDC1Server:
         log.debug('send to ' + self._ip_addr + ' with payload ' + str(payload))
         self._sock.send(payload_b)
         response_b = self._sock.recv(1024)
-        response = json.loads(response_b)
+        response: Dict[str, Any] = json.loads(response_b)
         log.debug('receive from ' + self._ip_addr + ' with payload ' + str(response))
-        if response['action'] == 'kWh+':
+        if 'action' in response.keys():
             response_b = self._sock.recv(1024)
             response = json.loads(response_b)
             log.debug('receive from ' + self._ip_addr + ' with payload ' + str(response))

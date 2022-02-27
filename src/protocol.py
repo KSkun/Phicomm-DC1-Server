@@ -45,6 +45,10 @@ class PhiCommDC1Server:
         response_b = self._sock.recv(1024)
         response = json.loads(response_b)
         log.debug('receive from ' + self._ip_addr + ' with payload ' + str(response))
+        if response['action'] == 'kWh+':
+            response_b = self._sock.recv(1024)
+            response = json.loads(response_b)
+            log.debug('receive from ' + self._ip_addr + ' with payload ' + str(response))
         if response['uuid'] == self._ctx_uuid and response['status'] == 200:
             return response['result']
         else:

@@ -65,7 +65,11 @@ class PhiCommDC1Server:
                 'params': {},
                 'auth': '',
             }
-            result = self.send_request(payload)
+            try:
+                result = self.send_request(payload)
+            except ValueError as e:
+                self._ctx_lock.release()  # release lock
+                raise e
             self._ctx_lock.release()
             return result
         else:
